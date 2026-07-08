@@ -1,6 +1,8 @@
 package br.com.castellani.screenmachspringboot;
 
+import br.com.castellani.screenmachspringboot.model.DadosSerie;
 import br.com.castellani.screenmachspringboot.service.ConsumoApi;
+import br.com.castellani.screenmachspringboot.service.ConverteDados;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +19,9 @@ public class ScreenmachspringbootApplication implements CommandLineRunner {
 		ConsumoApi consumoApi = new ConsumoApi();
 		var json = consumoApi.obterDados("http://www.omdbapi.com/?t=lost&apikey=ddc92677");
 		System.out.println(json);
+		ConverteDados conversor = new ConverteDados();
+		DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
+		System.out.println(dados);
 
 	}
 }
