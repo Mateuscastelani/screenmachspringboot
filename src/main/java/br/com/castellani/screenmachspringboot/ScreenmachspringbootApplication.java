@@ -1,5 +1,6 @@
 package br.com.castellani.screenmachspringboot;
 
+import br.com.castellani.screenmachspringboot.model.DadosEpisodio;
 import br.com.castellani.screenmachspringboot.model.DadosSerie;
 import br.com.castellani.screenmachspringboot.service.ConsumoApi;
 import br.com.castellani.screenmachspringboot.service.ConverteDados;
@@ -22,6 +23,8 @@ public class ScreenmachspringbootApplication implements CommandLineRunner {
 		ConverteDados conversor = new ConverteDados();
 		DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
 		System.out.println(dados);
-
+		json = consumoApi.obterDados("http://www.omdbapi.com/?t=losts&season=1&episode=2&apikey=ddc92677");
+		DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
+		System.out.println(dadosEpisodio);
 	}
 }
