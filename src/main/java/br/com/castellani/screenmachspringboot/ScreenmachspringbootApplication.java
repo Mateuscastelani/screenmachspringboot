@@ -2,11 +2,15 @@ package br.com.castellani.screenmachspringboot;
 
 import br.com.castellani.screenmachspringboot.model.DadosEpisodio;
 import br.com.castellani.screenmachspringboot.model.DadosSerie;
+import br.com.castellani.screenmachspringboot.model.DadosTemporada;
 import br.com.castellani.screenmachspringboot.service.ConsumoApi;
 import br.com.castellani.screenmachspringboot.service.ConverteDados;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class ScreenmachspringbootApplication implements CommandLineRunner {
@@ -26,5 +30,14 @@ public class ScreenmachspringbootApplication implements CommandLineRunner {
 		json = consumoApi.obterDados("https://www.omdbapi.com/?t=true+blood&season=1&episode=2&apikey=ddc92677");
 		DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
 		System.out.println(dadosEpisodio);
+
+		List<DadosTemporada> temporadas = new ArrayList<>();
+
+		for (int i = 0; i <=dados.totalTemporadas(); i++) {
+			json = consumoApi.obterDados("https://www.omdbapi.com/?t=true+blood&season="+ i + "&apikey=ddc92677");
+			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+			temporadas.add(dadosTemporada);
+		}
+		temporadas.forEach(System.out::println);
 	}
 }
