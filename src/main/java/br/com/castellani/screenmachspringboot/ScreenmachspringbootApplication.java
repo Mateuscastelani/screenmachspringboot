@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ScreenmachspringbootApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		SpringApplication.run(ScreenmachspringbootApplication.class, args);
 	}
 

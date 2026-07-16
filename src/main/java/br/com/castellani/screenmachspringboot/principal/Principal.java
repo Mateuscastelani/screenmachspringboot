@@ -1,5 +1,6 @@
 package br.com.castellani.screenmachspringboot.principal;
 
+import br.com.castellani.screenmachspringboot.model.DadosEpisodio;
 import br.com.castellani.screenmachspringboot.model.DadosSerie;
 import br.com.castellani.screenmachspringboot.model.DadosTemporada;
 import br.com.castellani.screenmachspringboot.service.ConsumoApi;
@@ -29,14 +30,13 @@ public class Principal {
         List<DadosTemporada> temporadas = new ArrayList<>();
 
         for(int i = 1; i<=dados.totalTemporadas(); i++) {
-            json = consumo.obterDados ( ENDERECO + nomeSerie.replace(" ", "+") + "&season" + API_KEY);
+            json = consumo.obterDados ( ENDERECO + nomeSerie.replace(" ", "+") + "&season=" + i + API_KEY);
             DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
             temporadas.add(dadosTemporada);
 
         }
         temporadas.forEach(System.out::println);
 
-
-
+        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
     }
 }
