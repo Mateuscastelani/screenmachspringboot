@@ -1,16 +1,9 @@
 package br.com.castellani.screenmachspringboot;
 
-import br.com.castellani.screenmachspringboot.model.DadosEpisodio;
-import br.com.castellani.screenmachspringboot.model.DadosSerie;
-import br.com.castellani.screenmachspringboot.model.DadosTemporada;
-import br.com.castellani.screenmachspringboot.service.ConsumoApi;
-import br.com.castellani.screenmachspringboot.service.ConverteDados;
+import br.com.castellani.screenmachspringboot.principal.Principal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootApplication
 public class ScreenmachspringbootApplication implements CommandLineRunner {
@@ -21,23 +14,7 @@ public class ScreenmachspringbootApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		ConsumoApi consumoApi = new ConsumoApi();
-		var json = consumoApi.obterDados("http://www.omdbapi.com/?t=lost&apikey=ddc92677");
-		System.out.println(json);
-		ConverteDados conversor = new ConverteDados();
-		DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
-		System.out.println(dados);
-		json = consumoApi.obterDados("https://www.omdbapi.com/?t=true+blood&season=1&episode=2&apikey=ddc92677");
-		DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
-		System.out.println(dadosEpisodio);
-
-		List<DadosTemporada> temporadas = new ArrayList<>();
-
-		for (int i = 0; i <=dados.totalTemporadas(); i++) {
-			json = consumoApi.obterDados("https://www.omdbapi.com/?t=true+blood&season="+ i + "&apikey=ddc92677");
-			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
-			temporadas.add(dadosTemporada);
-		}
-		temporadas.forEach(System.out::println);
+		Principal principal = new Principal();
+		principal.exibeMenu();
 	}
 }
