@@ -3,6 +3,7 @@ package br.com.castellani.screenmachspringboot.principal;
 import br.com.castellani.screenmachspringboot.model.DadosEpisodio;
 import br.com.castellani.screenmachspringboot.model.DadosSerie;
 import br.com.castellani.screenmachspringboot.model.DadosTemporada;
+import br.com.castellani.screenmachspringboot.model.Episodio;
 import br.com.castellani.screenmachspringboot.service.ConsumoApi;
 import br.com.castellani.screenmachspringboot.service.ConverteDados;
 
@@ -52,7 +53,11 @@ public class Principal {
                 .limit(5)
                 .forEach(System.out::println);
 
+        List<Episodio> episodios = temporadas.stream()
+                .flatMap(t -> t.episodios().stream()
+                        .map(d -> new Episodio(t.numero(), d))
+                ).collect(Collectors.toList());
 
-
+        episodios.forEach(System.out::println);
     }
 }
