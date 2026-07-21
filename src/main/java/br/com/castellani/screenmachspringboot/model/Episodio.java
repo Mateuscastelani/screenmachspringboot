@@ -2,6 +2,7 @@ package br.com.castellani.screenmachspringboot.model;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Episodio {
@@ -20,7 +21,7 @@ public class Episodio {
         try {
             this.dataLancamento = LocalDate.parse(dadosEpisodio.dataLancamento());
         } catch (DateTimeParseException ex) {
-            this.dataLancamento = LocalDate.now();
+            this.dataLancamento = null;
         }
     }
 
