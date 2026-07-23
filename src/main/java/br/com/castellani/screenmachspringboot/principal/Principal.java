@@ -9,10 +9,7 @@ import br.com.castellani.screenmachspringboot.service.ConverteDados;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -48,7 +45,7 @@ public class Principal {
                 .flatMap(t -> t.episodios().stream())
                 .collect(Collectors.toList());
 
-        System.out.println("\nTop 5 episódios:");
+/*        System.out.println("\nTop 5 episódios:");
         dadosEpisodios.stream()
                 .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
                 .peek(e -> System.out.println("Primeiro Filtro(N/A " + e))
@@ -59,7 +56,7 @@ public class Principal {
                 .map(e -> e.titulo().toUpperCase())
                 .peek(e -> System.out.println("Mapeamento " + e))
                 .forEach(System.out::println);
-
+*/
         List<Episodio> episodios = temporadas.stream()
                 .flatMap(t -> t.episodios().stream()
                         .map(d -> new Episodio(t.numero(), d))
@@ -67,7 +64,21 @@ public class Principal {
 
         episodios.forEach(System.out::println);
 
-        System.out.println("A partir de que ano você deseja ver os episódios?");
+
+        System.out.println("Digite um trecho do titulo do Episodio: ");
+        var trechoTitulo = leitura.nextLine() ;
+        Optional<Episodio> episodioBuscado = episodios.stream()
+                .filter(e -> e.getTitulo().toUpperCase().contains(trechoTitulo.toUpperCase()))
+                .findFirst();
+        if(episodioBuscado.isPresent()) {
+            System.out.println("Episodio buscado com sucesso!");
+            System.out.println("Temporada: " + episodioBuscado.get().getTemporada());
+        } else {
+            System.out.println("Não encontrei :(");
+
+        }
+
+/*        System.out.println("A partir de que ano você deseja ver os episódios?");
         var ano = leitura.nextInt();
         leitura.nextLine();
 
@@ -81,6 +92,6 @@ public class Principal {
                                 " Episódio: " + e.getTitulo() +
                                 " Data Lançamento: " + e.getDataLancamento().format(formatador)
                 ));
-
+*/
     }
 }
